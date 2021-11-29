@@ -1,7 +1,19 @@
-/*
- * Главный файл стилей.
- * Все паршалы подключаются сюда.
- */
+body {
+  background-color: lavender;
+}
 
-// Стили для файла с примером HTML-фрагмента
-@import './example';
+img {
+  display: block;
+  width: 100%;
+  height: 80%;
+}
+
+.gallery {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  justify-items: center;
+
+  list-style: none;
+}
