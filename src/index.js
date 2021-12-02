@@ -8,6 +8,15 @@ import imagesBuilder from './imageBuilder';
 
 const PER_PAGE_IMAGE = 10;
 
+const spiner = document.querySelector('.loader');
+
+function spinerShow() {
+  spiner.classList.remove('is-hide');
+}
+function spinerHide() {
+  spiner.classList.add('is-hide');
+}
+
 const options = {
   totalItems: 10,
   itemsPerPage: PER_PAGE_IMAGE,
@@ -28,16 +37,24 @@ const lightbox = new SimpleLightbox('.gallery .image__box a', {
 });
 
 fetchImage.request().then(data => {
+  spinerShow();
   galleryEl.innerHTML = imagesBuilder(data.data.hits);
   pagination.reset(data.data.totalHits);
   lightbox.refresh();
+  setTimeout(() => {
+    spinerHide();
+  }, 250);
 });
 
 pagination.on('afterMove', ({ page }) => {
+  spinerShow();
   fetchImage.setCouter(page);
   fetchImage.request().then(data => {
     galleryEl.innerHTML = imagesBuilder(data.data.hits);
     pagination.currentPage = page;
     lightbox.refresh();
   });
+  setTimeout(() => {
+    spinerHide();
+  }, 250);
 });
